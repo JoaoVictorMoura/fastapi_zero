@@ -5,7 +5,7 @@ from fastapi.testclient import TestClient
 from fastapi_zero.app import app
 
 
-def test_root_deve_retornar_ola_mundo():
+def test_root_deve_retornar_message():
     """
     Esse teste tem 3 etapas (AAA)
     - A: Arrange - Arranjo
@@ -21,3 +21,21 @@ def test_root_deve_retornar_ola_mundo():
     # Assert
     assert response.status_code == HTTPStatus.OK
     assert response.json() == {'message': 'Olá Mundo'}
+
+
+def test_olamundo_em_html():
+    """
+    Esse teste tem 3 etapas (AAA)
+    - A: Arrange - Arranjo
+    - A: Act     - Age/Executa a coisa (o SUT - System Under Test)
+    - A: Assert  - Garanta que A é A
+    """
+    # Arrange
+    client = TestClient(app)
+
+    # Act
+    response = client.get('/olamundo')
+
+    # Assert
+    assert response.status_code == HTTPStatus.OK
+    assert '<h1> Welcome to My Website - Page Olá Mundo </h1>' in response.text
